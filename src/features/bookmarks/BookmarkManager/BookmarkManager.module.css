@@ -1,0 +1,29 @@
+.manager {
+  width: fit-content;
+  position: relative;
+  border: 1px solid black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 12px;
+  padding: 24px;
+}
+
+.controls {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.message {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

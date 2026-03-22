@@ -1,0 +1,63 @@
+.card {
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.bookmark {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.bookmark a {
+  text-decoration: none;
+  color: inherit;
+  width: 476px;
+  padding: 8px;
+  border: 2px solid lightgray;
+  border-radius: 12px;
+  &:hover {
+    border-color: black;
+  }
+}
+
+.title {
+  margin: 0;
+}
+
+.subtext {
+  color: #5e5e5e;
+  font-size: 12px;
+}
+
+.icon_button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid transparent;
+  background: none;
+  &:hover {
+    border: 2px solid black;
+    border-radius: 8px;
+  }
+}
+
+.delete_button {
+  width: 24px;
+  height: 24px;
+  justify-self: end;
+  &:hover {
+    border: none;
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
