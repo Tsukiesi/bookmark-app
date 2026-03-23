@@ -1,10 +1,4 @@
-import s from "./BookmarkManager.module.css";
-import Button from "../../../shared/ui/Button/Button";
-import BookmarkSearch from "../BookmarkSearch/BookmarkSearch";
-import BookmarkCard from "../BookmarkCard/BookmarkCard";
-import BookmarkForm from "../BookmarkForm/BookmarkForm";
-import { useEffect, useState } from "react";
-import { useBookmarkForm } from "../hooks/useBookmarkForm";
+import { useState, useEffect } from "react";
 
 interface Bookmarks {
   id: string;
@@ -14,15 +8,28 @@ interface Bookmarks {
   tags: string;
 }
 
-const BookmarkManager = () => {
+export const useBookmarks = () => {
   const [active, setActive] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const { form, setForm, handleChange, resetForm } = useBookmarkForm();
   const [bookmarks, setBookmarks] = useState<Bookmarks[]>(() => {
     const saved = localStorage.getItem("bookmarks");
     return saved ? JSON.parse(saved) : [];
   });
+  const [form, setForm] = useState({
+    url: "",
+    title: "",
+    notes: "",
+    tags: "",
+  });
+
+  const handleChange = (name: string, value: string) => {
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const resetForm = () => {
+    setForm({ url: "", title: "", notes: "", tags: "" });
+  };
 
   useEffect(() => {
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
@@ -94,54 +101,27 @@ const BookmarkManager = () => {
 
   const hasBookmarks = bookmarks.length > 0;
   const isSearchEmpty = filteredBookmarks?.length === 0;
-  return (
-    <>
-      <main className={s.manager}>
-        <div className={s.controls}>
-          <BookmarkSearch
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-          <Button onClick={openForm}>Add new bookmark</Button>
-        </div>
-
-        {!hasBookmarks && (
-          <div className={s.message}>
-            <p>There are no bookmarks yet</p>
-          </div>
-        )}
-
-        {hasBookmarks && isSearchEmpty && (
-          <div className={s.message}>
-            <p>Bookmark not found</p>
-          </div>
-        )}
-
-        {(filteredBookmarks ?? bookmarks).map((bookmark) => (
-          <BookmarkCard
-            key={bookmark.id}
-            id={bookmark.id}
-            title={bookmark.title}
-            url={bookmark.url}
-            notes={bookmark.notes}
-            tags={bookmark.tags}
-            deleteBookmark={deleteBookmark}
-            bookmarkData={bookmarkData}
-          />
-        ))}
-      </main>
-      <BookmarkForm
-        form={form}
-        handleChange={handleChange}
-        resetForm={resetForm}
-        addBookmark={addBookmark}
-        active={active}
-        setActive={setActive}
-        editingId={editingId}
-        editBookmark={editBookmark}
-      ></BookmarkForm>
-    </>
-  );
+  return {
+    active,
+    setActive,
+    editingId,
+    setEditingId,
+    searchQuery,
+    setSearchQuery,
+    bookmarks,
+    setBookmarks,
+    addBookmark,
+    openForm,
+    deleteBookmark,
+    editBookmark,
+    bookmarkData,
+    filteredBookmarks,
+    hasBookmarks,
+    isSearchEmpty,
+    form,
+    handleChange,
+    resetForm,
+  };
 };
 
-export default BookmarkManager;
+export default useBookmarks;

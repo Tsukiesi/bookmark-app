@@ -1,5 +1,5 @@
 import Header from "../widgets/Header/Header";
-import BookmarkManager from "../features/bookmarks/BookmarkManager/BookmarkManager";
+import BookmarkManager from "../features/bookmark-manager/BookmarkManager";
 
 const App = () => {
   return (

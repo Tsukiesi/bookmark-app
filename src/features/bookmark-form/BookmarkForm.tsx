@@ -1,8 +1,9 @@
 import s from "./BookmarkForm.module.css";
-import Input from "../../../shared/ui/Input/Input";
-import Button from "../../../shared/ui/Button/Button";
+import Textarea from "../../shared/Textarea/Textarea";
+import Button from "../../shared/ui/Button/Button";
+import Input from "../../shared/ui/Input/Input";
 import { useEffect } from "react";
-import Textarea from "../../../shared/Textarea/Textarea";
+
 interface BookmarkFormProps {
   active?: boolean;
   setActive: (active: boolean) => void;

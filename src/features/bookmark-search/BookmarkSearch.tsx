@@ -1,5 +1,5 @@
 import s from "./BookmarkSearch.module.css";
-import Input from "../../../shared/ui/Input/Input";
+import Input from "../../shared/ui/Input/Input";
 
 interface BookmarkSearchProps {
   searchQuery: string;
