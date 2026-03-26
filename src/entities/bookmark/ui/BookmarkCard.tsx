@@ -1,3 +1,4 @@
+import type { Bookmarks } from "../model/types";
 import s from "./BookmarkCard.module.css";
 export interface CardProps {
   id: string;
@@ -6,11 +7,11 @@ export interface CardProps {
   notes: string;
   tags: string;
   deleteBookmark: (bookmarkId: string) => void;
-  bookmarkData: (bookmarkId: string) => void;
+  handleEditForm: (bookmark: Bookmarks) => void;
 }
 
 const BookmarkCard = (props: CardProps) => {
-  const { id, url, title, notes, tags, deleteBookmark, bookmarkData } = props;
+  const { id, url, title, notes, tags, deleteBookmark, handleEditForm } = props;
   const separatedTags = tags
     .split(/[^a-zA-Zа-яА-ЯёЁ0-9]+/)
     .filter((tag) => tag !== "");
@@ -53,7 +54,10 @@ const BookmarkCard = (props: CardProps) => {
           <p className={s.title}>{title}</p>
           <span className={s.subtext}>{url}</span>
         </a>
-        <button className={s.icon_button} onClick={() => bookmarkData(id)}>
+        <button
+          className={s.icon_button}
+          onClick={() => handleEditForm({ id, title, url, notes, tags })}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

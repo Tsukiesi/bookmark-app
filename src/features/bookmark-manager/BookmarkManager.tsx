@@ -1,30 +1,32 @@
 import s from "./BookmarkManager.module.css";
 import Button from "../../shared/ui/Button/Button";
 import BookmarkSearch from "../bookmark-search/BookmarkSearch";
-import BookmarkCard from "../bookmark-card/BookmarkCard";
-import BookmarkForm from "../bookmark-form/BookmarkForm";
-import useBookmarks from "./useBookmarks";
+import BookmarkList from "../../widgets/BookmarkList/BookmarkList";
+import AddBookmark from "../bookmark-form/AddBookmark";
+import useBookmarks from "../../entities/bookmark/model/hooks/useBookmarks";
+import useSearch from "../../entities/bookmark/model/hooks/useSearch";
 
 const BookmarkManager = () => {
   const {
     active,
-    setActive,
     editingId,
-    searchQuery,
-    setSearchQuery,
     bookmarks,
     addBookmark,
     openForm,
+    closeForm,
     deleteBookmark,
     editBookmark,
-    bookmarkData,
-    filteredBookmarks,
+    handleEditForm,
+    endEditing,
     hasBookmarks,
-    isSearchEmpty,
     form,
     handleChange,
     resetForm,
   } = useBookmarks();
+
+  const { searchQuery, setSearchQuery, filteredBookmarks, isSearchEmpty } =
+    useSearch(bookmarks);
+
   return (
     <>
       <main className={s.manager}>
@@ -48,29 +50,24 @@ const BookmarkManager = () => {
           </div>
         )}
 
-        {(filteredBookmarks ?? bookmarks).map((bookmark) => (
-          <BookmarkCard
-            key={bookmark.id}
-            id={bookmark.id}
-            title={bookmark.title}
-            url={bookmark.url}
-            notes={bookmark.notes}
-            tags={bookmark.tags}
-            deleteBookmark={deleteBookmark}
-            bookmarkData={bookmarkData}
-          />
-        ))}
+        <BookmarkList
+          bookmarks={bookmarks}
+          handleEditForm={handleEditForm}
+          filteredBookmarks={filteredBookmarks}
+          deleteBookmark={deleteBookmark}
+        />
       </main>
-      <BookmarkForm
+      <AddBookmark
         form={form}
         handleChange={handleChange}
         resetForm={resetForm}
         addBookmark={addBookmark}
         active={active}
-        setActive={setActive}
+        closeForm={closeForm}
         editingId={editingId}
         editBookmark={editBookmark}
-      ></BookmarkForm>
+        endEditing={endEditing}
+      ></AddBookmark>
     </>
   );
 };
