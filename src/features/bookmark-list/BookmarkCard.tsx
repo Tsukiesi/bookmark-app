@@ -1,20 +1,21 @@
-import type { Bookmarks } from "../model/types";
+import {
+  useBookmarksActions,
+  useDataContext,
+} from "@/features/bookmark-management";
 import s from "./BookmarkCard.module.css";
+
 export interface CardProps {
   id: string;
   url: string;
   title: string;
   notes: string;
-  tags: string;
-  deleteBookmark: (bookmarkId: string) => void;
-  handleEditForm: (bookmark: Bookmarks) => void;
+  tags: string[];
 }
 
 const BookmarkCard = (props: CardProps) => {
-  const { id, url, title, notes, tags, deleteBookmark, handleEditForm } = props;
-  const separatedTags = tags
-    .split(/[^a-zA-Zа-яА-ЯёЁ0-9]+/)
-    .filter((tag) => tag !== "");
+  const { id, url, title, notes, tags } = props;
+  const { deleteBookmark } = useDataContext();
+  const { handleEditForm } = useBookmarksActions();
   const getDomain = (url: string) => {
     try {
       const urlObject = new URL(url);
@@ -75,11 +76,9 @@ const BookmarkCard = (props: CardProps) => {
           </svg>
         </button>
       </div>
-      {notes && <p>{notes}</p>}
+      {notes && <p className={s.description}>{notes}</p>}
       {tags && <hr />}
-      {tags && (
-        <p className={s.subtext}>{separatedTags.map((tag) => `#${tag} `)}</p>
-      )}
+      {tags && <p className={s.subtext}>{tags?.map((tag) => `#${tag} `)}</p>}
     </div>
   );
 };

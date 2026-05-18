@@ -1,22 +1,22 @@
-import type { Bookmarks } from "../types";
+import type { Bookmarks } from "@/entities/bookmark/model/types";
 
 const useControls = (
   setBookmarks: React.Dispatch<React.SetStateAction<Bookmarks[]>>,
 ) => {
-  const addBookmark = (form: {
+  const addBookmark = (bookmarkData: {
     title: string;
     url: string;
     notes: string;
-    tags: string;
+    tags: string[];
   }) => {
     setBookmarks((prev) => [
       ...prev,
       {
         id: crypto.randomUUID(),
-        title: form.title,
-        url: form.url,
-        notes: form.notes,
-        tags: form.tags,
+        title: bookmarkData.title,
+        url: bookmarkData.url,
+        notes: bookmarkData.notes,
+        tags: bookmarkData.tags,
       },
     ]);
   };
@@ -31,7 +31,7 @@ const useControls = (
     url: string,
     title: string,
     notes: string,
-    tags: string,
+    tags: string[],
   ) => {
     setBookmarks((prev) =>
       prev.map((bookmark) =>

@@ -1,4 +1,4 @@
-import type { Bookmarks } from "../types";
+import type { Bookmarks } from "@/entities/bookmark/model/types";
 import { useState } from "react";
 const useSearch = (bookmarks: Bookmarks[]) => {
   const [searchQuery, setSearchQuery] = useState("");

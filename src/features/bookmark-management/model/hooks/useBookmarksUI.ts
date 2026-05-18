@@ -1,21 +1,13 @@
 import { useState } from "react";
-import type { Bookmarks } from "../types";
 
-const useBookmarksUI = (
-  setForm: (
-    value: React.SetStateAction<{
-      url: string;
-      title: string;
-      notes: string;
-      tags: string;
-    }>,
-  ) => void,
-) => {
+const useBookmarksUI = () => {
   const [active, setActive] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [tagActive, setTagActive] = useState<boolean>(false);
   const openForm = () => {
-    setActive(!active);
+    setActive(true);
   };
+
   const closeForm = () => {
     setActive(false);
   };
@@ -26,6 +18,15 @@ const useBookmarksUI = (
   const endEditing = () => {
     setEditingId(null);
   };
+
+  const openTagInput = () => {
+    setTagActive(true);
+  };
+
+  const closeTagInput = () => {
+    setTagActive(false);
+  };
+
   return {
     active,
     editingId,
@@ -33,6 +34,9 @@ const useBookmarksUI = (
     closeForm,
     openEditForm,
     endEditing,
+    tagActive,
+    openTagInput,
+    closeTagInput,
   };
 };
 

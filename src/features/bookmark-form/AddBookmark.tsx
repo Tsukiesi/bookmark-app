@@ -1,50 +1,28 @@
+import { Button, Modal, Input, Textarea } from "@/shared/ui";
+import { useUIContext } from "@/features/bookmark-management";
+import { useBookmarksActions } from "@/features/bookmark-management";
+import { useDataContext } from "@/features/bookmark-management";
 import s from "./AddBookmark.module.css";
-import Textarea from "../../shared/ui/Textarea/Textarea";
-import Button from "../../shared/ui/Button/Button";
-import Input from "../../shared/ui/Input/Input";
-import Modal from "../../shared/ui/Modal/Modal";
 
-interface AddBookmarkProps {
-  active: boolean;
-  form: {
-    url: string;
-    title: string;
-    notes: string;
-    tags: string;
-  };
-  handleChange: (name: string, value: string) => void;
-  resetForm: () => void;
-  closeForm: () => void;
-  addBookmark: (form: {
-    url: string;
-    title: string;
-    notes: string;
-    tags: string;
-  }) => void;
-  editingId?: string | null;
-  endEditing: () => void;
-  editBookmark: (
-    bookmarkId: string,
-    url: string,
-    title: string,
-    notes: string,
-    tags: string,
-  ) => void;
-}
-
-const AddBookmark: React.FC<AddBookmarkProps> = ({
-  active,
-  form,
-  handleChange,
-  resetForm,
-  closeForm,
-  addBookmark,
-  editingId,
-  endEditing,
-  editBookmark,
-}) => {
+const AddBookmark = () => {
+  const {
+    active,
+    tagActive,
+    form,
+    resetForm,
+    newTagValue,
+    handleChange,
+    handleTagsChange,
+    openTagInput,
+    closeTagInput,
+    addNewTag,
+    editingId,
+    endEditing,
+  } = useUIContext();
+  const { closeFormWithReset, closeTagInputWithReset } = useBookmarksActions();
+  const { addBookmark, editBookmark } = useDataContext();
   return (
-    <Modal active={active} closeModal={closeForm}>
+    <Modal active={active} closeModal={closeFormWithReset}>
       <Button
         className={s.reset}
         type={"reset"}
@@ -55,7 +33,9 @@ const AddBookmark: React.FC<AddBookmarkProps> = ({
         Clear Form
       </Button>
       <form className={s.form}>
-        <label htmlFor="title">Title</label>
+        <label className={s.title} htmlFor="title">
+          Title
+        </label>
         <Input
           value={form.title}
           onFormChange={handleChange}
@@ -80,17 +60,68 @@ const AddBookmark: React.FC<AddBookmarkProps> = ({
         />
 
         <label htmlFor="tags">Tags</label>
-        <Input
-          value={form.tags}
-          onFormChange={handleChange}
-          placeholder="Tags"
-          id="tags"
-        />
 
+        {tagActive ? (
+          <button
+            type="button"
+            className={s.close_tag_button}
+            onClick={() => closeTagInputWithReset()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              width="16"
+              height="16"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        ) : (
+          <button
+            type="button"
+            className={s.add_tag_button}
+            onClick={() => openTagInput()}
+          >
+            +
+          </button>
+        )}
+        <div className={s.add_tag}>
+          {tagActive && (
+            <>
+              <Input
+                value={newTagValue}
+                onFormChange={(_, value) => handleTagsChange(value)}
+                placeholder="New tag"
+                id="tags"
+              />
+              <Button
+                onClick={() => {
+                  addNewTag();
+                  closeTagInput();
+                }}
+              >
+                Add
+              </Button>
+            </>
+          )}
+        </div>
+        <div className={s.tag_list}>
+          {form.tags &&
+            form.tags.map((tag, index) => (
+              <span className={s.tag} key={index}>{`#${tag}`}</span>
+            ))}
+        </div>
         <div className={s.confirm}>
           <Button
             onClick={() => {
-              closeForm();
+              closeFormWithReset();
             }}
           >
             Cancel
@@ -102,8 +133,7 @@ const AddBookmark: React.FC<AddBookmarkProps> = ({
                 confirm("Are you sure you're ready to add new bookmark?")
               ) {
                 addBookmark(form);
-                closeForm();
-                resetForm();
+                closeFormWithReset();
               }
               if (
                 editingId != null &&
@@ -117,8 +147,7 @@ const AddBookmark: React.FC<AddBookmarkProps> = ({
                   form.tags,
                 );
                 endEditing();
-                closeForm();
-                resetForm();
+                closeFormWithReset();
               }
             }}
           >

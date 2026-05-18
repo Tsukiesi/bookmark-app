@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import useBookmarksLocalStorage from "./useBookmarksLocalStorage";
-import type { Bookmarks } from "../types";
+import useLocalStorage from "@/shared/lib/hooks/useLocalStorage";
+import type { Bookmarks } from "@/entities/bookmark/model/types";
 
 const useBookmarksState = () => {
-  const { saved, saveBookmarks } = useBookmarksLocalStorage();
-  const [bookmarks, setBookmarks] = useState<Bookmarks[]>(saved ?? []);
+  const [data, setData] = useLocalStorage<Bookmarks[]>("bookmarks", []);
+  const [bookmarks, setBookmarks] = useState<Bookmarks[]>(data ?? []);
   useEffect(() => {
-    saveBookmarks(bookmarks);
-    console.log("bookmarks:", bookmarks);
+    setData(bookmarks);
   }, [bookmarks]);
   return {
     bookmarks,

@@ -2,8 +2,10 @@
   outline: none;
   width: 240px;
   padding: 8px;
-  border: 1px solid lightgray;
+  background-color: var(--main-bg);
+  border: 1px solid var(--second-border);
   border-radius: 8px;
   resize: none;
   scrollbar-width: none;
+  color: var(--main-clr);
 }

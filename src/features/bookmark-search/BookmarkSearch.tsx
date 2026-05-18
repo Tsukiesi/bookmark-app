@@ -1,13 +1,11 @@
+import Input from "@/shared/ui/Input/Input";
+import useSearch from "./useSearch";
+import { useDataContext } from "@/features/bookmark-management/model/data-context";
 import s from "./BookmarkSearch.module.css";
-import Input from "../../shared/ui/Input/Input";
 
-interface BookmarkSearchProps {
-  searchQuery: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const BookmarkSearch = (props: BookmarkSearchProps) => {
-  const { searchQuery, setSearchQuery } = props;
+const BookmarkSearch = () => {
+  const { bookmarks } = useDataContext();
+  const { searchQuery, setSearchQuery } = useSearch(bookmarks);
   return (
     <form className={s.search}>
       <Input

@@ -1,5 +1,6 @@
 .card {
-  border: 1px solid grey;
+  border: 1px solid var(--second-border);
+  border-left: 8px solid var(--action-bg);
   border-radius: 8px;
   padding: 12px;
 }
@@ -17,11 +18,12 @@
   text-decoration: none;
   color: inherit;
   width: 476px;
+  height: 76px;
   padding: 8px;
-  border: 2px solid lightgray;
+  border: 1px solid var(--second-border);
   border-radius: 12px;
   &:hover {
-    border-color: black;
+    border: 2px solid var(--main-clr);
   }
 }
 
@@ -30,8 +32,18 @@
 }
 
 .subtext {
-  color: #5e5e5e;
+  max-width: 476px;
+  color: var(--subtext);
   font-size: 12px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.description {
+  width: 476px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .icon_button {
@@ -43,8 +55,9 @@
   align-items: center;
   border: 2px solid transparent;
   background: none;
+  color: var(--main-clr);
   &:hover {
-    border: 2px solid black;
+    border: 2px solid var(--main-clr);
     border-radius: 8px;
   }
 }
@@ -55,9 +68,26 @@
   justify-self: end;
   &:hover {
     border: none;
+    background-color: #cc3300;
     svg {
       width: 32px;
       height: 32px;
+      color: var(--main-clr);
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .bookmark a {
+    width: 238px;
+    height: 76px;
+  }
+
+  .description {
+    width: 238px;
+  }
+
+  .subtext {
+    max-width: 238px;
   }
 }

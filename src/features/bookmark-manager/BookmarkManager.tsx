@@ -1,41 +1,23 @@
+import { Button } from "@/shared/ui";
+import BookmarkSearch from "@/features/bookmark-search/BookmarkSearch";
+import BookmarkList from "@/features/bookmark-list/BookmarkList";
+import AddBookmark from "@/features/bookmark-form/AddBookmark";
+import { useBookmarksActions } from "@/features/bookmark-management";
+import { useThemeContext } from "@/app/providers/theme-context";
+import { useUIContext } from "@/features/bookmark-management";
 import s from "./BookmarkManager.module.css";
-import Button from "../../shared/ui/Button/Button";
-import BookmarkSearch from "../bookmark-search/BookmarkSearch";
-import BookmarkList from "../../widgets/BookmarkList/BookmarkList";
-import AddBookmark from "../bookmark-form/AddBookmark";
-import useBookmarks from "../../entities/bookmark/model/hooks/useBookmarks";
-import useSearch from "../../entities/bookmark/model/hooks/useSearch";
 
 const BookmarkManager = () => {
-  const {
-    active,
-    editingId,
-    bookmarks,
-    addBookmark,
-    openForm,
-    closeForm,
-    deleteBookmark,
-    editBookmark,
-    handleEditForm,
-    endEditing,
-    hasBookmarks,
-    form,
-    handleChange,
-    resetForm,
-  } = useBookmarks();
-
-  const { searchQuery, setSearchQuery, filteredBookmarks, isSearchEmpty } =
-    useSearch(bookmarks);
-
+  const { openForm } = useUIContext();
+  const { hasBookmarks, notFound } = useBookmarksActions();
+  const { toggleTheme } = useThemeContext();
   return (
     <>
       <main className={s.manager}>
         <div className={s.controls}>
-          <BookmarkSearch
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
+          <BookmarkSearch />
           <Button onClick={openForm}>Add new bookmark</Button>
+          <Button onClick={toggleTheme}>Switch Theme</Button>
         </div>
 
         {!hasBookmarks && (
@@ -44,30 +26,15 @@ const BookmarkManager = () => {
           </div>
         )}
 
-        {hasBookmarks && isSearchEmpty && (
+        {notFound && (
           <div className={s.message}>
             <p>Bookmark not found</p>
           </div>
         )}
 
-        <BookmarkList
-          bookmarks={bookmarks}
-          handleEditForm={handleEditForm}
-          filteredBookmarks={filteredBookmarks}
-          deleteBookmark={deleteBookmark}
-        />
+        <BookmarkList />
       </main>
-      <AddBookmark
-        form={form}
-        handleChange={handleChange}
-        resetForm={resetForm}
-        addBookmark={addBookmark}
-        active={active}
-        closeForm={closeForm}
-        editingId={editingId}
-        editBookmark={editBookmark}
-        endEditing={endEditing}
-      ></AddBookmark>
+      <AddBookmark />
     </>
   );
 };
