@@ -1,11 +1,11 @@
 import {
-  useDataContext,
-  DataProvider,
-} from "@/features/bookmark-management/model/data-context";
+  useBookmarkDataContext,
+  BookmarkDataProvider,
+} from "@/features/bookmark-management/model/bookmark-data-context";
 import {
-  useUIContext,
-  UIProvider,
-} from "@/features/bookmark-management/model/ui-context";
+  useBookmarkFormContext,
+  BookmarkFormProvider,
+} from "@/features/bookmark-management/model/bookmark-form-context";
 import type { Bookmarks } from "@/entities/bookmark/model/types";
 
 export const BookmarksProvider = ({
@@ -14,14 +14,14 @@ export const BookmarksProvider = ({
   children: React.ReactNode;
 }) => {
   return (
-    <DataProvider>
-      <UIProvider>{children}</UIProvider>
-    </DataProvider>
+    <BookmarkDataProvider>
+      <BookmarkFormProvider>{children}</BookmarkFormProvider>
+    </BookmarkDataProvider>
   );
 };
 
 export const useBookmarksActions = () => {
-  const { bookmarks, isSearchEmpty } = useDataContext();
+  const { bookmarks, isSearchEmpty } = useBookmarkDataContext();
   const {
     setForm,
     openEditForm,
@@ -29,7 +29,7 @@ export const useBookmarksActions = () => {
     closeTagInput,
     resetForm,
     resetTagInput,
-  } = useUIContext();
+  } = useBookmarkFormContext();
 
   const hasBookmarks = bookmarks.length > 0;
 

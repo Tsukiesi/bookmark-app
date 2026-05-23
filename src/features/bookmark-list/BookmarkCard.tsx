@@ -1,6 +1,6 @@
 import {
   useBookmarksActions,
-  useDataContext,
+  useBookmarkDataContext,
 } from "@/features/bookmark-management";
 import s from "./BookmarkCard.module.css";
 
@@ -14,7 +14,7 @@ export interface CardProps {
 
 const BookmarkCard = (props: CardProps) => {
   const { id, url, title, notes, tags } = props;
-  const { deleteBookmark } = useDataContext();
+  const { deleteBookmark } = useBookmarkDataContext();
   const { handleEditForm } = useBookmarksActions();
   const getDomain = (url: string) => {
     try {

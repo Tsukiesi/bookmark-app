@@ -4,11 +4,11 @@ import BookmarkList from "@/features/bookmark-list/BookmarkList";
 import AddBookmark from "@/features/bookmark-form/AddBookmark";
 import { useBookmarksActions } from "@/features/bookmark-management";
 import { useThemeContext } from "@/app/providers/theme-context";
-import { useUIContext } from "@/features/bookmark-management";
+import { useBookmarkFormContext } from "@/features/bookmark-management";
 import s from "./BookmarkManager.module.css";
 
 const BookmarkManager = () => {
-  const { openForm } = useUIContext();
+  const { openForm } = useBookmarkFormContext();
   const { hasBookmarks, notFound } = useBookmarksActions();
   const { toggleTheme } = useThemeContext();
   return (

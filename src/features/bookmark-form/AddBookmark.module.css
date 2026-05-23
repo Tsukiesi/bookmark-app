@@ -16,7 +16,7 @@
   right: 8px;
   border: none;
   background: none;
-  color: #5e5e5e;
+  color: var(--subtext);
   &:hover {
     text-decoration: underline;
   }
@@ -40,7 +40,7 @@
   color: var(--action-clr);
 }
 
-.add_tag {
+.tag_new {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -48,11 +48,11 @@
   gap: 8px;
 }
 
-.add_tag input {
+.tag_new input {
   width: 176.25px;
 }
 
-.add_tag_button {
+.tag_add_button {
   width: 24px;
   height: 24px;
   padding: 0;
@@ -66,7 +66,7 @@
   align-self: flex-start;
 }
 
-.close_tag_button {
+.tag_close_button {
   width: 16px;
   height: 16px;
   padding: 0;
@@ -79,7 +79,7 @@
   &:hover {
     border: none;
     border-radius: 4px;
-    background-color: #cc3300;
+    background-color: var(--close-hover);
     svg {
       width: 32px;
       height: 32px;

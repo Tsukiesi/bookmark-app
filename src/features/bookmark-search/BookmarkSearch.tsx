@@ -1,10 +1,10 @@
 import Input from "@/shared/ui/Input/Input";
 import useSearch from "./useSearch";
-import { useDataContext } from "@/features/bookmark-management/model/data-context";
+import { useBookmarkDataContext } from "@/features/bookmark-management/model/bookmark-data-context";
 import s from "./BookmarkSearch.module.css";
 
 const BookmarkSearch = () => {
-  const { bookmarks } = useDataContext();
+  const { bookmarks } = useBookmarkDataContext();
   const { searchQuery, setSearchQuery } = useSearch(bookmarks);
   return (
     <form className={s.search}>

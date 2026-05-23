@@ -1,7 +1,7 @@
 import { Button, Modal, Input, Textarea } from "@/shared/ui";
-import { useUIContext } from "@/features/bookmark-management";
+import { useBookmarkFormContext } from "@/features/bookmark-management";
 import { useBookmarksActions } from "@/features/bookmark-management";
-import { useDataContext } from "@/features/bookmark-management";
+import { useBookmarkDataContext } from "@/features/bookmark-management";
 import s from "./AddBookmark.module.css";
 
 const AddBookmark = () => {
@@ -18,9 +18,9 @@ const AddBookmark = () => {
     addNewTag,
     editingId,
     endEditing,
-  } = useUIContext();
+  } = useBookmarkFormContext();
   const { closeFormWithReset, closeTagInputWithReset } = useBookmarksActions();
-  const { addBookmark, editBookmark } = useDataContext();
+  const { addBookmark, editBookmark } = useBookmarkDataContext();
   return (
     <Modal active={active} closeModal={closeFormWithReset}>
       <Button
@@ -64,7 +64,7 @@ const AddBookmark = () => {
         {tagActive ? (
           <button
             type="button"
-            className={s.close_tag_button}
+            className={s.tag_close_button}
             onClick={() => closeTagInputWithReset()}
           >
             <svg
@@ -86,13 +86,13 @@ const AddBookmark = () => {
         ) : (
           <button
             type="button"
-            className={s.add_tag_button}
+            className={s.tag_add_button}
             onClick={() => openTagInput()}
           >
             +
           </button>
         )}
-        <div className={s.add_tag}>
+        <div className={s.tag_new}>
           {tagActive && (
             <>
               <Input
@@ -139,13 +139,7 @@ const AddBookmark = () => {
                 editingId != null &&
                 confirm("Are you sure you're want to edit this bookmark?")
               ) {
-                editBookmark(
-                  editingId,
-                  form.url,
-                  form.title,
-                  form.notes,
-                  form.tags,
-                );
+                editBookmark(editingId, form);
                 endEditing();
                 closeFormWithReset();
               }

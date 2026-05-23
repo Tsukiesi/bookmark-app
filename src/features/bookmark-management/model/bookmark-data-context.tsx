@@ -1,30 +1,38 @@
 import { createContext, useContext } from "react";
-import type { DataContextType } from "@/entities/bookmark/model/types";
+import type { BookmarkDataContextType } from "@/entities/bookmark/model/types";
 
 import useBookmarksState from "@/entities/bookmark/model/hooks/useBookmarksState";
 import useControls from "@/features/bookmark-management/model/hooks/useControls";
 import useSearch from "@/features/bookmark-search//useSearch";
 
-const DataContext = createContext<DataContextType | undefined>(undefined);
+const BookmarkDataContext = createContext<BookmarkDataContextType | undefined>(
+  undefined,
+);
 
-export const useDataContext = () => {
-  const context = useContext(DataContext);
+export const useBookmarkDataContext = () => {
+  const context = useContext(BookmarkDataContext);
   if (!context) {
-    throw new Error("useDataContext must be used within DataProvider");
+    throw new Error(
+      "useBookmarkDataContext must be used within BookmarkDataProvider",
+    );
   }
 
   return context;
 };
 
-export const DataProvider = ({ children }: { children: React.ReactNode }) => {
+export const BookmarkDataProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const { bookmarks, setBookmarks } = useBookmarksState();
   const controls = useControls(setBookmarks);
   const search = useSearch(bookmarks);
   return (
-    <DataContext.Provider
+    <BookmarkDataContext.Provider
       value={{ bookmarks, setBookmarks, ...controls, ...search }}
     >
       {children}
-    </DataContext.Provider>
+    </BookmarkDataContext.Provider>
   );
 };

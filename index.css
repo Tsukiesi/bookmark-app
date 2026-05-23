@@ -11,6 +11,7 @@
   --main-clr: #000000;
   --second-border: #666666;
   --subtext: #5e5e5e;
+  --close-hover: #cc3300;
   --button-bg: var(--action-bg);
   --button-clr: var(--action-clr);
   --header-bg: var(--action-bg);

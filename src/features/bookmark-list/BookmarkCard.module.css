@@ -68,7 +68,7 @@
   justify-self: end;
   &:hover {
     border: none;
-    background-color: #cc3300;
+    background-color: var(--close-hover);
     svg {
       width: 32px;
       height: 32px;
