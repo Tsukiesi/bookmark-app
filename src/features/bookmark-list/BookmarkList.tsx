@@ -1,9 +1,9 @@
 import { type Bookmarks } from "@/entities/bookmark/model/types";
-import { useDataContext } from "@/features/bookmark-management";
+import { useBookmarkDataContext } from "@/features/bookmark-management";
 import BookmarkCard from "./BookmarkCard";
 
 const BookmarkList = () => {
-  const { bookmarks, filteredBookmarks } = useDataContext();
+  const { bookmarks, filteredBookmarks } = useBookmarkDataContext();
 
   return (filteredBookmarks ?? bookmarks).map((bookmark: Bookmarks) => (
     <BookmarkCard
