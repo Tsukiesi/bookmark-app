@@ -1,11 +1,14 @@
-import Header from "../widgets/Header/Header";
-import BookmarkManager from "../features/bookmarks/BookmarkManager/BookmarkManager";
+import { Header } from "@/widgets";
+import BookmarkManager from "@/features/bookmark-manager/BookmarkManager";
+import { BookmarksProvider } from "@/features/bookmark-management";
 
 const App = () => {
   return (
     <>
       <Header />
-      <BookmarkManager />
+      <BookmarksProvider>
+        <BookmarkManager />
+      </BookmarksProvider>
     </>
   );
 };

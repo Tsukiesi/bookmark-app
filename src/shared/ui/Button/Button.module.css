@@ -1,7 +1,11 @@
 .button {
   border-radius: 16px;
-  background-color: black;
-  color: white;
+  background-color: var(--button-bg);
+  color: var(--button-clr);
   border: none;
-  padding: 8px;
+  padding: 8px 16px;
+  &:hover {
+    filter: brightness(0.9);
+    cursor: pointer;
+  }
 }

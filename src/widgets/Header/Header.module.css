@@ -2,4 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--header-bg);
+  color: var(--header-clr);
 }
