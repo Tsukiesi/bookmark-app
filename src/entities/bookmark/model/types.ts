@@ -38,4 +38,7 @@ export interface BookmarkFormContextType {
   resetForm: () => void;
   newTagValue: string;
   addNewTag: () => void;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+  tagError: string;
+  setTagError: React.Dispatch<React.SetStateAction<string>>;
 }

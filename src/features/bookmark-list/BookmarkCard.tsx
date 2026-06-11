@@ -53,7 +53,7 @@ const BookmarkCard = (props: CardProps) => {
         <a href={url} target="_blank" rel="noopener noreferrer">
           <img src={faviconUrl} alt="site icon" width="16" height="16" />
           <p className={s.title}>{title}</p>
-          <span className={s.subtext}>{url}</span>
+          <span className={`${s.subtext} ${s.url}`}>{url}</span>
         </a>
         <button
           className={s.icon_button}

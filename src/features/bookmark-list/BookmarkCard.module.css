@@ -15,6 +15,8 @@
 }
 
 .bookmark a {
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: inherit;
   width: 476px;
@@ -29,15 +31,21 @@
 
 .title {
   margin: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .subtext {
   max-width: 476px;
   color: var(--subtext);
   font-size: 12px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
+}
+
+.url {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .description {
