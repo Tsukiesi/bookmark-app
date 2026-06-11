@@ -7,6 +7,8 @@ interface InputProps {
   value?: string;
   onChange?: (value: string) => void;
   onFormChange?: (name: string, value: string) => void;
+  required?: boolean;
+  ref?: React.RefObject<HTMLInputElement | null>;
 }
 
 const Input = (props: InputProps) => {
@@ -17,13 +19,15 @@ const Input = (props: InputProps) => {
     placeholder = "",
     onChange,
     onFormChange,
+    required,
+    ref,
   } = props;
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const v = event.target.value;
     if (onFormChange && id) {
-      onFormChange?.(id, v);
-    } else {
-      onChange?.(v);
+      onFormChange(id, v);
+    } else if (onChange) {
+      onChange(v);
     }
   };
   return (
@@ -35,6 +39,8 @@ const Input = (props: InputProps) => {
       value={value}
       onChange={handleChange}
       autoComplete="off"
+      required={required}
+      ref={ref}
     />
   );
 };
