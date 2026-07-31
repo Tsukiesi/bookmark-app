@@ -11,7 +11,7 @@
 * Custom Hooks
 * Local Storage
 * Feature-Sliced Design (FSD)
-Сборка: Vite.
+* Сборка: Vite.
 
 ## Архитектура
 
